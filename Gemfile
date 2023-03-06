@@ -18,6 +18,9 @@ gem 'bcrypt', '~> 3.1.7'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
+#Active Storage for file uploading and downloading:
+# gem 'active_storage'
+
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
@@ -39,6 +42,8 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
+
+
 group :development, :test do
   gem 'rspec-rails', '~> 5.0.0'
 end
@@ -49,3 +54,4 @@ group :test do
 end
 
 gem "active_model_serializers", "~> 0.10.12"
+
