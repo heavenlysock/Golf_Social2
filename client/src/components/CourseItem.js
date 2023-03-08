@@ -9,12 +9,10 @@ function CourseItem({ course }) {
                             <img className="card-img" alt="Course" src={course.img_url}/>
                             <div class="card-img-overlay overlay">
                                 <h3 className='card-title overlay'>
-                                    {course.name} 
-                                    {course.location} 
+                                    {course.name}
                                     {course.par} 
-                                    {course.length} 
-                                    {course.price} </h3>
-                                {/* <p className='card-text overlay'>Average Rating: {"⭐️".repeat(course.average_reviews)}</p> */}
+                                    {course.description} 
+                                    {course.features} </h3>
                             </div>
                         </div>
                     </div>

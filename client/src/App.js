@@ -82,9 +82,9 @@ function App() {
 
           <Route exact path='/users/:id' element={<UserDetail onShowDetails={onShowDetails} displayInfo={displayInfo} currentUser={currentUser} onDeleteUser={onDeleteUser} />} />
 
-          <Route exact path='/friendships/:id' element={<FriendshipDetail onShowDetails={onShowDetails} />} />
+          <Route exact path='/friendships/:id' element={<FriendshipDetail onShowDetails={onShowDetails} displayInfo={displayInfo} currentUser={currentUser} onDeleteUser={onDeleteUser}/>} />
 
-          <Route exact path='/friendships/' element={<FriendshipList onShowDetails={onShowDetails} />} />
+          <Route exact path='/friendships' element={<FriendshipList onShowDetails={onShowDetails} displayInfo={displayInfo}/>} />
 
         </Routes>
       

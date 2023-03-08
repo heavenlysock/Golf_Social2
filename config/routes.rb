@@ -23,6 +23,6 @@ Rails.application.routes.draw do
   resources :reviews
   resources :courses, only: [:index, :show, :create, :update]
   resources :users, except: [:create, :show]
-
+  resources :friendships, only: [:index, :show, :create, :update]
 
 end

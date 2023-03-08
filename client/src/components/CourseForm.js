@@ -4,22 +4,18 @@ import React from 'react';
 function CourseForm({ onSubmitNewCourse }) {
 
     const [name, setName] = useState("")
-    const [location, setLocation] = useState("")
-    const [price, setPrice] = useState("")
-    const [holes, setHoles] = useState("")
+    const [description, setDescription] = useState("")
     const [par, setPar] = useState("")
-    const [length, setLength] = useState("")
+    const [features, setFeatures] = useState("")
     const [img_url, setImg_url] = useState("")
 
     function handleSubmit(e) {
         e.preventDefault()
         let courseInput = {
             name: name,
-            location: location,
-            price: price,
-            holes: holes,
             par: par,
-            length: length,
+            description: description,
+            features: features,
             img_url: img_url
         }
 
@@ -38,11 +34,9 @@ function CourseForm({ onSubmitNewCourse }) {
                 alert('Course successfully added!')
             })
         setName("")
-        setLocation("")
-        setPrice("")
-        setHoles("")
+        setDescription("")
+        setFeatures("")
         setPar("")
-        setLength("")
         setImg_url("")
     }
 
@@ -63,44 +57,6 @@ function CourseForm({ onSubmitNewCourse }) {
                     </div>
                 </div>
                 <div className='form-group row mx-5 my-2'>
-                    <label className='col-sm-2 col-form-label' htmlFor="location">Location</label>
-                    <div className='col-sm-8'>
-                        <input
-                            className='form-control'
-                            required
-                            type="text" 
-                            name="location" 
-                            value={location}
-                            onChange={e => setLocation(e.target.value)}
-                        />
-                    </div>
-                </div>
-                <div className='form-group row mx-5 my-2'>
-                    <label className='col-sm-2 col-form-label' htmlFor="price">Price</label>
-                    <div className='col-sm-8'>
-                        <input  
-                            className='form-control'
-                            required
-                            type="text" 
-                            name="price" 
-                            value={price}
-                            onChange={e => setPrice(e.target.value)}
-                        />
-                    </div>
-                </div>
-                <div className='form-group row mx-5 my-2'>
-                    <label className='col-sm-2 col-form-label' htmlFor="holes">Holes</label>
-                    <div className='col-sm-8'>
-                        <input
-                            className='form-control'
-                            type="text" 
-                            name="holes" 
-                            value={holes}
-                            onChange={e => setHoles(e.target.value)}
-                        />
-                    </div>
-                </div>
-                <div className='form-group row mx-5 my-2'>
                     <label className='col-sm-2 col-form-label' htmlFor="par">Par</label>
                     <div className='col-sm-8'>
                         <input  
@@ -113,14 +69,27 @@ function CourseForm({ onSubmitNewCourse }) {
                     </div>
                 </div>
                 <div className='form-group row mx-5 my-2'>
-                    <label className='col-sm-2 col-form-label' htmlFor="length">Length</label>
+                    <label className='col-sm-2 col-form-label' htmlFor="description">description</label>
+                    <div className='col-sm-8'>
+                        <input
+                            className='form-control'
+                            required
+                            type="text" 
+                            name="description" 
+                            value={description}
+                            onChange={e => setDescription(e.target.value)}
+                        />
+                    </div>
+                </div>
+                <div className='form-group row mx-5 my-2'>
+                    <label className='col-sm-2 col-form-label' htmlFor="features">Features</label>
                     <div className='col-sm-8'>
                         <input
                             className='form-control'
                             type="text" 
-                            name="length" 
-                            value={length}
-                            onChange={e => setLength(e.target.value)}
+                            name="features" 
+                            value={features}
+                            onChange={e => setFeatures(e.target.value)}
                         />
                     </div>
                 </div>

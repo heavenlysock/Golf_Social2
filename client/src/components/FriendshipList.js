@@ -1,32 +1,32 @@
 import { useState, useEffect } from 'react';
 import FriendshipDetail from './FriendshipDetail';
 
-function FriendshipList( {onShowDetails, displayInfo } ) {
+function FriendshipList({ onShowDetails, displayInfo }) {
   const [friendships, setFriendships] = useState([]);
 
   useEffect(() => {
     fetch('/friendships')
       .then(response => {
         if (response.ok) {
-          response.json()
-            .then(data => setFriendships(data))
+          response.json().then(data => setFriendships(data));
         } else {
-          console.log('Failed to fetch friendship list.')
+          console.log('Failed to fetch friendship list.');
         }
-      })
-  }, [])
+      });
+  }, []);
 
   function onDeleteFriendship(friendshipId) {
     fetch(`/friendships/${friendshipId}`, {
-      method: 'DELETE'
-    })
-      .then(response => {
-        if (response.ok) {
-          setFriendships(prevFriendships => prevFriendships.filter(friendship => friendship.id !== friendshipId))
-        } else {
-          console.log('Failed to delete friendship.')
-        }
-      })
+      method: 'DELETE',
+    }).then(response => {
+      if (response.ok) {
+        setFriendships(prevFriendships =>
+          prevFriendships.filter(friendship => friendship.id !== friendshipId)
+        );
+      } else {
+        console.log('Failed to delete friendship.');
+      }
+    });
   }
 
   return (
@@ -35,12 +35,21 @@ function FriendshipList( {onShowDetails, displayInfo } ) {
       <ul>
         {friendships.map(friendship => (
           <li key={friendship.id}>
-            <button onClick={() => onShowDetails(friendship)}>{friendship.title}</button>
-            <button onClick={() => onDeleteFriendship(friendship.id)}>Delete</button>
+            <button onClick={() => onShowDetails(friendship)}>
+              {`${friendship.user.name} and ${friendship.friend.name}`}
+            </button>
+            <button onClick={() => onDeleteFriendship(friendship.id)}>
+              Delete
+            </button>
           </li>
         ))}
       </ul>
-      {displayInfo && <FriendshipDetail friendship={displayInfo} onShowDetails={onShowDetails} />}
+      {displayInfo && (
+        <FriendshipDetail
+          friendship={displayInfo}
+          onShowDetails={onShowDetails}
+        />
+      )}
     </div>
   );
 }

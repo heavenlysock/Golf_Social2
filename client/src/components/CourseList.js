@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react"
 import CourseForm from "./CourseForm"
-// import CourseDetail from "./CourseDetail"
 import CourseItem from "./CourseItem"
-// import ReviewItem from "./ReviewItem"
 import React from 'react';
 
 function CourseList() {
@@ -14,6 +12,10 @@ function CourseList() {
         fetch('/courses')
             .then(response => response.json())
             .then(courses => setCourseList(courses))
+            .catch(error => {
+                console.error('Error fetching courses:', error);
+                setCourseList([]);
+            });
     }, [])
 
     function toggleForm() {
@@ -38,7 +40,7 @@ function CourseList() {
             <br/>
             <div className="container-fluid">
                 <div className="row">
-                    {courseList.map(course => <CourseItem key={course.id} displayInfo={course.displayInfo} courseId={course.Id} course={course}/>)}
+                    {Array.isArray(courseList) && courseList.map(course => <CourseItem key={course.id} displayInfo={course.displayInfo} courseId={course.Id} course={course}/>)}
                 </div>
                 <div>
                     

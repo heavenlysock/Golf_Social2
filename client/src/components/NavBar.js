@@ -24,6 +24,9 @@ const NavBar = ({ currentUser, onLogOut }) => {
                 <NavLink className="nav-link" to="/courses">
                 Courses
                 </NavLink>
+                <NavLink className="nav-link" to="/friendships">
+                Friendships
+                </NavLink>
                 <NavLink className="nav-link" to="/reviews">
                 Reviews
                 </NavLink>
@@ -32,6 +35,7 @@ const NavBar = ({ currentUser, onLogOut }) => {
                     <NavLink className="nav-link" to="/users">
                     Reviewers
                     </NavLink>
+
                     <button className="nav-link" onClick={handleLogOut}>
                     Log Out
                     </button>

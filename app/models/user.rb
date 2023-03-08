@@ -2,7 +2,7 @@ class User < ApplicationRecord
     has_many :reviews
     has_many :courses, through: :reviews
     has_many :courses, through: :created_courses
-
+    has_many :created_courses, through: :updated_courses
     has_secure_password
 
     validates :name, presence: true

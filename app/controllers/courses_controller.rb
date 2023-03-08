@@ -32,7 +32,7 @@ class CoursesController < ApplicationController
     # end
 
     def course_params
-        params.permit(:name, :par, :description, :features, :img_url)
+        params.permit(:user, :name, :par, :description, :features, :img_url)
     end
 
     def not_found
