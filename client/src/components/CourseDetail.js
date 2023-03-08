@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import ReviewForm from './ReviewForm'
 import ReviewDetail from './ReviewDetail'
@@ -47,18 +47,17 @@ console.log(currentCourse)
                         <div className='row no-gutters flexCont'>
                             <div className="col-md-4">
                                 <img
-                                    src={currentCourse.image_url}
+                                    src={currentCourse.img_url}
                                     className="card-img my-5 mx-5"
                                     alt="Course"
                                 />
                                 {/* </img> */}
                             </div>
                             <div className='col-md-8'>
-                                <h3 className='card-title my-5'>{currentCourse.name} {currentCourse.location}</h3>
-                                <p>Price: {currentCourse.price}</p> 
-                                <p>Holes: {currentCourse.holes}</p> 
-                                <p>Par: {currentCourse.par}</p> 
-                                <p>Length: {currentCourse.length}</p> 
+                                <h3 className='card-title my-5'>{currentCourse.name} {currentCourse.par}</h3>
+                                <p>Price: {currentCourse.description}</p> 
+                                <p>Holes: {currentCourse.features}</p> 
+                                <p>Par: {currentCourse.img_url}</p> 
 
                             </div>
                         </div>

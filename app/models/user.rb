@@ -9,7 +9,7 @@ class User < ApplicationRecord
     validates :email, presence: true, uniqueness: true
 
 
-    
+
     has_many :sent_friendships_requests, class_name: "Friendship", foreign_key: :sender_id, dependent: :destroy
     # has_many :pending_sent_friendships_requests, -> {where("friendships.status = ?", "pending")}, class_name: "Friendship", foreign_key: :sender_id, dependent: :destroy
     # has_many :accepted_sent_friendships_requests, -> {where("friendships.status = ?", "accepted")}, class_name: "Friendship", foreign_key: :sender_id, dependent: :destroy
@@ -27,7 +27,4 @@ class User < ApplicationRecord
         friendships = Friendship.where(sender: self, status: "accepted").or(Friendship.where(recipient: self,status: "accepted"))
         friendships.map{|f| f.sender === self ? f.recipient : f.sender}
     end
-
-end
-
 end

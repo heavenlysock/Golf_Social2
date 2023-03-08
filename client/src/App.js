@@ -10,6 +10,8 @@ import CourseList from './components/CourseList';
 import ReviewList from './components/ReviewList';
 import UserList from './components/UserList';
 import NavBar from './components/NavBar';
+import FriendshipList from './components/FriendshipList';
+import FriendshipDetail from './components/FriendshipDetail';
 import React from 'react';
 
 function App() {
@@ -74,14 +76,16 @@ function App() {
 
           <Route exact path="/users" element={<UserList />} />
 
-
           <Route exact path="/courses" element={<CourseList />} />
 
           <Route exact path='/courses/:id' element={<CourseDetail onShowDetails={onShowDetails} displayInfo={displayInfo} currentUser={currentUser} onDeleteUser={onDeleteUser} />} />
 
           <Route exact path='/users/:id' element={<UserDetail onShowDetails={onShowDetails} displayInfo={displayInfo} currentUser={currentUser} onDeleteUser={onDeleteUser} />} />
 
-          
+          <Route exact path='/friendships/:id' element={<FriendshipDetail onShowDetails={onShowDetails} />} />
+
+          <Route exact path='/friendships/' element={<FriendshipList onShowDetails={onShowDetails} />} />
+
         </Routes>
       
     </div>

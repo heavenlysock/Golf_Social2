@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import React from 'react'
 
 function ReviewForm({ currentUser, onSubmitNewReview, course }) {
@@ -12,9 +12,9 @@ function ReviewForm({ currentUser, onSubmitNewReview, course }) {
     // const [recommendBool, setRecommendBool] = useState("")
 
     const [reviewInput, setReviewInput] = useState({
+        comment: "",
         rating: "",
-        pros: "",
-        cons: "",
+        favorite: "",
         course_id: course.id
     })
     function handleSubmit(e) {
