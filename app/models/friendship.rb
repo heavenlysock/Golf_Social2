@@ -1,8 +1,8 @@
 class Friendship < ApplicationRecord
   belongs_to :recipient, class_name: "User"
   belongs_to :sender, class_name: "User"
-  belongs_to :user
-  
+  # belongs_to :user
+
   validates :status, inclusion: {in: ["pending", "accepted", "rejected"], message: "%{value} has to be one of pending, accepted, rejected"}
 
   scope :pending, -> {where("status = ?", "pending")}

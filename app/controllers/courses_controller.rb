@@ -1,5 +1,5 @@
 class CoursesController < ApplicationController
-    skip_before_action :authenticated_user, only: [:index, :show]
+    # skip_before_action :authenticated_user, only: [:index, :show]
 
     rescue_from ActiveRecord::RecordNotFound, with: :not_found
     rescue_from ActiveRecord::RecordInvalid, with: :invalid
@@ -15,7 +15,7 @@ class CoursesController < ApplicationController
     end
 
     def create
-        render json: Course.create!(course_params), status: :created
+        render json: @current_user.created_courses.create!(course_params), status: :created
     end
 
     def update
@@ -32,7 +32,7 @@ class CoursesController < ApplicationController
     # end
 
     def course_params
-        params.permit(:user, :name, :par, :description, :features, :img_url)
+        params.permit(:user_id, :name, :par, :description, :features, :img_url)
     end
 
     def not_found

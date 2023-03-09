@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_03_08_194400) do
+ActiveRecord::Schema.define(version: 2023_03_06_082910) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -58,15 +58,13 @@ ActiveRecord::Schema.define(version: 2023_03_08_194400) do
     t.string "status", default: "pending"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "user_id", null: false
     t.index ["recipient_id"], name: "index_friendships_on_recipient_id"
     t.index ["sender_id"], name: "index_friendships_on_sender_id"
-    t.index ["user_id"], name: "index_friendships_on_user_id"
   end
 
   create_table "reviews", force: :cascade do |t|
     t.string "comment"
-    t.string "rating"
+    t.integer "rating"
     t.boolean "favorite"
     t.integer "user_id", null: false
     t.integer "course_id", null: false
@@ -80,7 +78,6 @@ ActiveRecord::Schema.define(version: 2023_03_08_194400) do
     t.string "name"
     t.string "email"
     t.string "password_digest"
-    t.string "image"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -88,7 +85,6 @@ ActiveRecord::Schema.define(version: 2023_03_08_194400) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "courses", "users"
-  add_foreign_key "friendships", "users"
   add_foreign_key "friendships", "users", column: "recipient_id"
   add_foreign_key "friendships", "users", column: "sender_id"
   add_foreign_key "reviews", "courses"

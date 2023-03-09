@@ -3,9 +3,9 @@ import React from 'react'
 
 function ReviewForm({ currentUser, onSubmitNewReview, course }) {
 // console.log(course.reviews)
-    const [courseRating, setCourseRating] = useState("")
-    const [prosComment, setProsComment] = useState("")
-    const [consComment, setConsComment] = useState("")
+    const [rating, setRating] = useState("")
+    const [favorite, setFavorite] = useState("")
+    const [comment, setComment] = useState("")
     const [seeReviews, setSeeReviews] = useState(course.reviews)
 
     console.log(seeReviews)
@@ -36,9 +36,9 @@ function ReviewForm({ currentUser, onSubmitNewReview, course }) {
                 }
 
             })
-        setCourseRating("")
-        setProsComment("")
-        setConsComment("")
+        setRating("")
+        setComment("")
+        setFavorite("")
         // setRecommendBool("")
     }
     // useEffect(() => {
@@ -68,7 +68,7 @@ function ReviewForm({ currentUser, onSubmitNewReview, course }) {
                     <option value="10" label="10">10</option>
                 </datalist>
                 <div className='form-group row mx-5 my-2'>
-                    <label className='col-sm-2 col-form-label' htmlFor="courseRating">Course Rating</label>
+                    <label className='col-sm-2 col-form-label' htmlFor="rating">Course Rating</label>
                     <div className='col-sm-2'>
                         <input  
                             type="range" 
@@ -81,26 +81,26 @@ function ReviewForm({ currentUser, onSubmitNewReview, course }) {
                             onChange={handleChange}
                         />
                     </div>
-                    <label className='col-sm-2 col-form-label' htmlFor="prosComment">Pros</label>
+                    <label className='col-sm-2 col-form-label' htmlFor="comment">Pros</label>
                     <div className='col-sm-6'>
                         <input
                             className='form-control'
                             type="text" 
-                            name="pros" 
-                            value={reviewInput.pros}
+                            name="comment" 
+                            value={reviewInput.comment}
                             onChange={handleChange}
                         />
                     </div>
                 </div>
                 <br/>
                 <div className='form-group row mx-5 my-2'>
-                    <label className='col-sm-2 col-form-label' htmlFor="consComment">Cons</label>
+                    <label className='col-sm-2 col-form-label' htmlFor="favorite">Cons</label>
                     <div className='col-sm-6'>
                         <input
                             className='form-control'
                             type="text" 
-                            name="cons" 
-                            value={reviewInput.cons}
+                            name="favorite" 
+                            value={reviewInput.favorite}
                             onChange={handleChange}
                         />
                     </div>

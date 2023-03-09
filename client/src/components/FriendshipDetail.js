@@ -5,17 +5,7 @@ function FriendshipDetail({ onShowDetails }) {
   const { id } = useParams();
   const [friendship, setFriendship] = useState(null);
 
-  useEffect(() => {
-    fetch(`/friendships/${id}`)
-      .then(response => {
-        if (response.ok) {
-          response.json()
-            .then(data => setFriendship(data))
-        } else {
-          console.log('Failed to fetch friendship details.')
-        }
-      })
-  }, [id])
+ 
 
   if (!friendship) return <div>Loading...</div>;
 

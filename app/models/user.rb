@@ -1,8 +1,8 @@
 class User < ApplicationRecord
     has_many :reviews
-    has_many :courses, through: :reviews
-    has_many :courses, through: :created_courses
-    has_many :created_courses, through: :updated_courses
+    has_many :reviewed_courses, through: :reviews, source: :course
+    has_many :created_courses, class_name: "Course"
+    # has_many :created_courses, through: :updated_courses
     has_secure_password
 
     validates :name, presence: true
@@ -23,8 +23,18 @@ class User < ApplicationRecord
     # has_many :new_friends, -> {self.joins("LEFT JOIN friendships as friend ON users.id = friend.sender_id LEFT JOIN users as user ON user.id = friend.sender_id").where("friendships.status = ?", "accepted")}, through: :sent_friendships_requests, source: :sender
     # has_many :accepted_friends, -> {self.joins("LEFT JOIN friendships ON users.id = friendships.recipient_id").where("status = ?", "accepted")}, through: :received_friendships_requests, source: :recipient
 
-    def friends
+    def accepted_friends
         friendships = Friendship.where(sender: self, status: "accepted").or(Friendship.where(recipient: self,status: "accepted"))
         friendships.map{|f| f.sender === self ? f.recipient : f.sender}
     end
+
+    # def pending_friends
+    #     friendships = Friendship.where(sender: self, status: "pending").or(Friendship.where(recipient: self,status: "pending"))
+    #     friendships.map{|f| f.sender === self ? f.recipient : f.sender}
+    # end
+
+    # def rejected_friends
+    #     friendships = Friendship.where(sender: self, status: "rejected").or(Friendship.where(recipient: self,status: "rejected"))
+    #     friendships.map{|f| f.sender === self ? f.recipient : f.sender}
+    # end
 end

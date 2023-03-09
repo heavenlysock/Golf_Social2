@@ -18,8 +18,8 @@ function App() {
 
   const [currentUser, setCurrentUser] = useState(null)
   console.log(currentUser)
-  const [displayInfo, setDisplayInfo] = useState(null)
-
+  const [displayInfo, setDisplayInfo] = useState({})
+  console.log(displayInfo)
   
 
 
@@ -82,9 +82,7 @@ function App() {
 
           <Route exact path='/users/:id' element={<UserDetail onShowDetails={onShowDetails} displayInfo={displayInfo} currentUser={currentUser} onDeleteUser={onDeleteUser} />} />
 
-          <Route exact path='/friendships/:id' element={<FriendshipDetail onShowDetails={onShowDetails} displayInfo={displayInfo} currentUser={currentUser} onDeleteUser={onDeleteUser}/>} />
-
-          <Route exact path='/friendships' element={<FriendshipList onShowDetails={onShowDetails} displayInfo={displayInfo}/>} />
+          <Route exact path='/friendships' element={<FriendshipList onShowDetails={onShowDetails} displayInfo={displayInfo} currentUser={currentUser} setCurrentUser={setCurrentUser} />} />
 
         </Routes>
       

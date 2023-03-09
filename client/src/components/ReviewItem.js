@@ -1,11 +1,12 @@
-import { NavLink } from 'react-router-dom';
+// import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
 // import FinalReview from './FinalReview';
 function ReviewItem({ review, setReviews, isAuthenticated, setRevList }) {
   const [updateForm, setUpdateForm] = useState(false) 
   const [editReview, setEditReview] = useState({
-    pros: "",
-    cons: ""
+    comment: "",
+    favorite: "",
+    rating: ""
   });
 //   const [isEditing, setIsEditing] = useState(false);
 // console.log(review)
@@ -56,17 +57,17 @@ function ReviewItem({ review, setReviews, isAuthenticated, setRevList }) {
 
 <div>
 <div className="card-deck col-sm-3 my-3">
-            <div class="card text-card">
+            <div className="card text-card">
                 {/* <h4 className='card-title my-3'>Course and Location: {review.overall_rating}</h4> */}
                 
 
                     <p>{review.course.name}</p>
-                    <p>{review.course.location}</p>
+                    <p>{review.course.rating}</p>
 
 
-                    <p>Review:</p>
-                    <p>Pros: {review.pros}</p>
-                    <p>Cons: {review.cons}</p>
+                    <p>Review:{review.comment}</p>
+                    <p>Favorite: {review.favorite}</p>
+                   
 
                     <p>by {review.user.name}</p>
                 
@@ -77,26 +78,28 @@ function ReviewItem({ review, setReviews, isAuthenticated, setRevList }) {
         </div>
     <div> { updateForm ? 
         <form onSubmit={handleUpdateClick}>
-                <label className='col-sm-2 col-form-label' htmlFor="prosComment">Pros</label>
+                <label className='col-sm-2 col-form-label' htmlFor="comment">Comment</label>
                 <div className='col-sm-6'>
                     <input
                         className='form-control'
                         type="text"
-                        name="pros" 
-                        value={editReview.pros}
+                        name="comment" 
+                        value={editReview.comment}
                         onChange={handleFormChange}
                     />
                 </div>
                     <br/>
-                        <label className='col-sm-2 col-form-label' htmlFor="consComment">Cons</label>
                         <div className='col-sm-6'>
                             <input
-                                className='form-control'
-                                type="text" 
-                                name="cons" 
-                                value={editReview.cons}
+                                className='form-check-input'
+                                type="checkbox" 
+                                name="favorite" 
+                                value={editReview.favorite}
                                 onChange={handleFormChange}
                             />
+                            <label className='form-check-label' >
+                            Favorite
+                            </label>
                         </div>
                     
 

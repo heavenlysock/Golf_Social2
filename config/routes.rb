@@ -18,7 +18,7 @@ Rails.application.routes.draw do
 
   get '/me', to: 'users#show'
 
-
+  delete '/friendships/remove', to: 'friendships#destroy'
 
   resources :reviews
   resources :courses, only: [:index, :show, :create, :update]

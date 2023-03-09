@@ -1,5 +1,5 @@
 class CourseReviewsSerializer < ActiveModel::Serializer
-    attributes :id, :name, :par, :description, :features, :img_url 
+    attributes :id, :user_id, :name, :par, :description, :features, :img_url 
 
     has_many :reviews
 
