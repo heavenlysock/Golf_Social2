@@ -14,10 +14,10 @@ const NavBar = ({ currentUser, onLogOut }) => {
       }
     
 
-    return (
+      return (
         <nav className="navbar navbar-expand-lg bg-light">
             <div className="container-fluid">
-            <NavLink className="navbar-name" to="/">
+            <NavLink className="navbar-name" exact to="/">
                 Review Now
             </NavLink>
             <div className="navbar-nav">

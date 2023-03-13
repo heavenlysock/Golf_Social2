@@ -11,15 +11,14 @@ import ReviewList from './components/ReviewList';
 import UserList from './components/UserList';
 import NavBar from './components/NavBar';
 import FriendshipList from './components/FriendshipList';
-import FriendshipDetail from './components/FriendshipDetail';
 import React from 'react';
 
 function App() {
 
   const [currentUser, setCurrentUser] = useState(null)
   console.log(currentUser)
-  const [displayInfo, setDisplayInfo] = useState({})
-  console.log(displayInfo)
+  // const [displayInfo, setDisplayInfo] = useState({})
+  // console.log(displayInfo)
   
 
 
@@ -29,7 +28,7 @@ function App() {
         if(response.ok) {
           response.json()
           .then((user) => setCurrentUser(user))
-        } else{
+        } else {
           setCurrentUser(null)
         }
       })
@@ -47,12 +46,12 @@ function App() {
   }
 
   function onShowDetails(individual) {
-    setDisplayInfo(individual)
+    setCurrentUser(individual)
   }
 
   function onDeleteUser() {
     setCurrentUser(null)
-    setDisplayInfo(null)
+    // setDisplayInfo(null)
   }
 
   if(!currentUser) return (
@@ -72,17 +71,17 @@ function App() {
         <Routes>
           <Route exact path="/" element={<Main />} />
 
-          <Route exact path="/reviews" element={<ReviewList />} />
+          <Route exact path="/reviews" element={<ReviewList currentUser={currentUser}/>} />
 
-          <Route exact path="/users" element={<UserList />} />
+          <Route exact path="/users" element={<UserList currentUser={currentUser} />} />
 
           <Route exact path="/courses" element={<CourseList />} />
 
-          <Route exact path='/courses/:id' element={<CourseDetail onShowDetails={onShowDetails} displayInfo={displayInfo} currentUser={currentUser} onDeleteUser={onDeleteUser} />} />
+          <Route exact path='/courses/:id' element={<CourseDetail onShowDetails={onShowDetails} displayInfo={currentUser} currentUser={currentUser} onDeleteUser={onDeleteUser} />} />
 
-          <Route exact path='/users/:id' element={<UserDetail onShowDetails={onShowDetails} displayInfo={displayInfo} currentUser={currentUser} onDeleteUser={onDeleteUser} />} />
+          <Route exact path='/users/:id' element={<UserDetail onShowDetails={onShowDetails} displayInfo={currentUser} currentUser={currentUser} onDeleteUser={onDeleteUser} />} />
 
-          <Route exact path='/friendships' element={<FriendshipList onShowDetails={onShowDetails} displayInfo={displayInfo} currentUser={currentUser} setCurrentUser={setCurrentUser} />} />
+          <Route exact path='/friendships' element={<FriendshipList onShowDetails={onShowDetails}  currentUser={currentUser} setCurrentUser={setCurrentUser} />} />
 
         </Routes>
       

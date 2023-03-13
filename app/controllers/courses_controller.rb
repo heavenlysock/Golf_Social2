@@ -36,6 +36,6 @@ class CoursesController < ApplicationController
     end
 
     def not_found
-        render json: { error: "Course not found" }, status: :not_found
+        render json: { error: "Course with ID #{params[:id]} not found" }, status: :not_found
     end
 end

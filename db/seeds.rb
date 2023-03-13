@@ -25,13 +25,13 @@ Friendship.create(sender_id: u2.id, recipient_id: u4.id)
 Friendship.create(sender_id: u4.id, recipient_id: u5.id)
 Friendship.create(sender_id: u6.id, recipient_id: u1.id)
 
-g1 = Course.create(user_id: 1, name: "Robert's Course Hole #1", description: "TBD", features: "TBD", par: 3, img_url: 'https://golf-pass.brightspotcdn.com/dims4/default/7731026/2147483647/strip/true/crop/500x323+0+5/resize/930x600!/quality/90/?url=https%3A%2F%2Fgolf-pass-brightspot.s3.amazonaws.com%2F98%2F2e%2F217f2f83aaa1bfd785fec33958e2%2F16744.jpg')
-g2 = Course.create(user_id: 2, name: "Funky Town Hole #2", description: "TBD", features: "TBD", par: 4, img_url: 'https://www.pebblebeach.com/content/uploads/PB-17-Mile-Drive-Joann-Dost-2.jpg')
+g1 = Course.create(user_id: 1, name: "Robert's Course Hole #1", description: "TBD", features: "TBD", par: 3, img_url: 'https://asgca.org/wp-content/uploads/2020/05/Greenville-1.jpg')
+g2 = Course.create(user_id: 2, name: "Funky Town Hole #2", description: "TBD", features: "TBD", par: 4, img_url: 'https://landezine.com/wp-content/uploads/2011/02/1-brutogolf-landscape-architecture-golf.jpg')
 g3 = Course.create(user_id: 3, name: 'Larchmont Blues', description: "TBD", features: "TBD", par: 5, img_url: 'https://golfdigest.sports.sndimg.com/content/dam/images/golfdigest/fullset/2019/01/14/5c3bf24cf193692d16a72559_186%20-%20Torrey%20Pines%20G...')
-g4 = Course.create(user_id: 4, name: "Keith's Maw", description: "TBD", features: "TBD", par: 4, img_url: 'https://www.andaluciagolf.com/images/NEWS246/Augusta%20National%2012.jpg')
-g5 = Course.create(user_id: 5, name: 'Lakewood Country Club', description: "TBD", features: "TBD", par: 4, img_url: 'https://www.lakewoodgolfcc.com/app/uploads/sites/21/2020/08/LKWD-2012-04-03-4285-1024x683.jpg')
-g6 = Course.create(user_id: 6, name: 'Saint Andrews Royal Country Club', description: "TBD", features: "TBD", par: 3, img_url: 'https://www.linksgolfstandrews.com/wp-content/uploads/2015/07/St-Andrews-Golf-Week.jpg')
-g7 = Course.create(user_id: 7, name: 'The Lakes', description: "TBD", features: "TBD", par: 5, img_url: 'https://s3.topgolf.com/uploads/images/venue/usa/el-segundo/golf-course/drone-shots/teg-tlaes-2022-03-09-032.jpg?resize.width=1200&resize.height=630&resize.method=cover')
+g4 = Course.create(user_id: 4, name: "Keith's Maw", description: "TBD", features: "TBD", par: 4, img_url: 'https://www.innovadiscs.com/wp-content/uploads/2015/06/design-header_1.jpg')
+g5 = Course.create(user_id: 5, name: 'Backnine Five', description: "TBD", features: "TBD", par: 4, img_url: 'https://range.static.thegrint.com/2014/08/Golf-Course-Arquitecture-Page-148.jpg')
+g6 = Course.create(user_id: 6, name: 'Sandwich Club Ridge', description: "TBD", features: "TBD", par: 3, img_url: 'https://www.golfcoursearchitecture.net/images/NDelhi-1_950x534.jpg')
+g7 = Course.create(user_id: 7, name: 'Bogieland', description: "TBD", features: "TBD", par: 5, img_url: 'https://ronkerngolfarchitect.files.wordpress.com/2012/05/pgcgn1230sc-finish-drawing.jpg')
 
 Review.create(user: u1, course: g1, id: 1, favorite: true, comment: "Great idea for placement of bunkers and sloped green. Could use more space for the fairway and maybe different types of rough.", rating: 6)
 Review.create(user: u5, course: g2, id: 2, favorite: true, comment: "Putting the green behind a curtain of trees going dog leg left will make this a challenging hole.", rating: 8)
@@ -40,7 +40,6 @@ Review.create(user: u2, course: g4, id: 4, favorite: true, comment: "My father a
 Review.create(user: u6, course: g5, id: 5, favorite: false, comment: "I think you are onto something but the hole is simply not challenging enough as it is just a straight fairway with no hazards...", rating: 5)
 Review.create(user: u4, course: g6, id: 6, favorite: true, comment: "The way you placed bermuda rough around elevated greens is genius. ", rating: 8)
 Review.create(user: u7, course: g7, id: 7, favorite: false, comment: "I think the ideas are there, you just need to look at some more examples of courses to see what may make sense.", rating: 4)
-
 
 
 puts 'Done seeding!'

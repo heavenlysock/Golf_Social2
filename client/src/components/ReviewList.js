@@ -4,7 +4,7 @@ import ReviewItem from './ReviewItem'
 
 
 
-function ReviewList() {
+function ReviewList({currentUser}) {
     // const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [revList, setRevList] = useState([])
 
@@ -20,7 +20,7 @@ function ReviewList() {
           <div className="container-fluid">
             <div className="row">
               {Array.isArray(revList) && revList.map(review => (
-                <ReviewItem key={review.id} review={review} setRevList={setRevList} />
+                <ReviewItem key={review.id} review={review} currentUser={currentUser} setRevList={setRevList} />
                 
               ))}
             </div>

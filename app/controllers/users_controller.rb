@@ -19,7 +19,7 @@ class UsersController < ApplicationController
 
 
     def update
-        updated_user = User.find(params[:id])
+        # updated_user = User.find(params[:id])
         updated_user.update!(user_params)
         render json: updated_user, status: :accepted
     end

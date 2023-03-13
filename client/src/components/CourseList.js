@@ -40,7 +40,7 @@ function CourseList() {
             <br/>
             <div className="container-fluid">
                 <div className="row">
-                    {Array.isArray(courseList) && courseList.map(course => <CourseItem key={course.id} displayInfo={course.displayInfo} courseId={course.Id} course={course}/>)}
+                    {courseList.map(course => <CourseItem key={course.id} displayInfo={course.displayInfo} courseId={course.Id} course={course}/>)}
                 </div>
                 <div>
                     
@@ -49,5 +49,6 @@ function CourseList() {
         </div>
     )
 }
+
 
 export default CourseList 

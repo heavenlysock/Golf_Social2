@@ -1,13 +1,16 @@
 // import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
+// import Switch from 'react-toggle-switch';
 // import FinalReview from './FinalReview';
-function ReviewItem({ review, setReviews, isAuthenticated, setRevList }) {
+function ReviewItem({ review, setReviews, isAuthenticated, setRevList, currentUser }) {
   const [updateForm, setUpdateForm] = useState(false) 
   const [editReview, setEditReview] = useState({
     comment: "",
     favorite: "",
     rating: ""
   });
+  
+  const isFavorited = review.favorite ? true : false;
 //   const [isEditing, setIsEditing] = useState(false);
 // console.log(review)
   const handleFormChange = (e) => {
@@ -25,18 +28,26 @@ function ReviewItem({ review, setReviews, isAuthenticated, setRevList }) {
     })
       .then((resp) => {
         if (resp.status === 202) {
-            resp.json().then(data => 
-                setRevList(current => {
-                const finalEdit = current.findIndex(element => element.id === review.id)
-                return [...current.slice(0, finalEdit), finalEdit, ...current.slice(finalEdit + 1)]
+            resp.json().then(updatedReview => {
+              setRevList(current => {
+                  const finalEdit = current.findIndex(element => element.id === updatedReview.id)
+                return [...current.slice(0, finalEdit), updatedReview, ...current.slice(finalEdit + 1)]
 
                 })
-            )
+              })
         }
       })
       
   };
 
+  const handleFavoriteClick = () => {
+    setEditReview(prevReview => ({
+      ...prevReview,
+      favorite: !prevReview.favorite
+    }));
+  };
+  
+ 
   const handleDeleteClick = () => {
     fetch(`/reviews/${review.id}`, {
       method: 'DELETE',
@@ -55,28 +66,31 @@ function ReviewItem({ review, setReviews, isAuthenticated, setRevList }) {
     // console.log(review.course)
   return (
 
-<div>
-<div className="card-deck col-sm-3 my-3">
-            <div className="card text-card">
-                {/* <h4 className='card-title my-3'>Course and Location: {review.overall_rating}</h4> */}
-                
+  <div>
+    <div className="card-deck col-sm-3 my-3">
+              
+                <div className="card text-card">
+                 
+                    
 
-                    <p>{review.course.name}</p>
-                    <p>{review.course.rating}</p>
+                        <p>{review.course?.name}</p>
+                        <p>{review.course?.rating}</p>
 
+                        <p>Review:</p>
+                        <p>Comment:{review.comment}</p>
+                        {isFavorited && <p>Favorite: Yes</p>}
+                        {!isFavorited && <p>Favorite: No</p>}
+                      
 
-                    <p>Review:{review.comment}</p>
-                    <p>Favorite: {review.favorite}</p>
-                   
-
-                    <p>by {review.user.name}</p>
-                
-                <button onClick={ ()=> setUpdateForm(current => !current)}>
-                    Update
-                </button>
+                        <p>by {review.user?.name}</p>
+                    
+                        {review.user?.id === currentUser.id ? <button onClick={ ()=> setUpdateForm(current => !current)}>
+                        Update
+                        </button> : null}
+                </div>
+               
             </div>
-        </div>
-    <div> { updateForm ? 
+        <div> { updateForm ? 
         <form onSubmit={handleUpdateClick}>
                 <label className='col-sm-2 col-form-label' htmlFor="comment">Comment</label>
                 <div className='col-sm-6'>
@@ -89,18 +103,14 @@ function ReviewItem({ review, setReviews, isAuthenticated, setRevList }) {
                     />
                 </div>
                     <br/>
-                        <div className='col-sm-6'>
-                            <input
-                                className='form-check-input'
-                                type="checkbox" 
-                                name="favorite" 
-                                value={editReview.favorite}
-                                onChange={handleFormChange}
-                            />
-                            <label className='form-check-label' >
-                            Favorite
-                            </label>
-                        </div>
+                    <div className='col-sm-6'>
+                      <button
+                        className={`btn btn-${editReview.favorite ? 'success' : 'secondary'}`}
+                        onClick={() => handleFavoriteClick()}
+                      >
+                        {editReview.favorite ? 'Favorite' : 'Not Favorite'}
+                      </button>
+                    </div>
                     
 
                     

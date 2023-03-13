@@ -68,7 +68,7 @@ function ReviewForm({ currentUser, onSubmitNewReview, course }) {
                     <option value="10" label="10">10</option>
                 </datalist>
                 <div className='form-group row mx-5 my-2'>
-                    <label className='col-sm-2 col-form-label' htmlFor="rating">Course Rating</label>
+                    <label className='col-sm-2 col-form-label' htmlFor="rating">Rating</label>
                     <div className='col-sm-2'>
                         <input  
                             type="range" 
@@ -81,7 +81,7 @@ function ReviewForm({ currentUser, onSubmitNewReview, course }) {
                             onChange={handleChange}
                         />
                     </div>
-                    <label className='col-sm-2 col-form-label' htmlFor="comment">Pros</label>
+                    <label className='col-sm-2 col-form-label' htmlFor="comment">Comment</label>
                     <div className='col-sm-6'>
                         <input
                             className='form-control'
@@ -94,7 +94,7 @@ function ReviewForm({ currentUser, onSubmitNewReview, course }) {
                 </div>
                 <br/>
                 <div className='form-group row mx-5 my-2'>
-                    <label className='col-sm-2 col-form-label' htmlFor="favorite">Cons</label>
+                    <label className='col-sm-2 col-form-label' htmlFor="favorite">Favorite</label>
                     <div className='col-sm-6'>
                         <input
                             className='form-control'

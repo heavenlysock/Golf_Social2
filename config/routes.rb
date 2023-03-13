@@ -20,6 +20,12 @@ Rails.application.routes.draw do
 
   delete '/friendships/remove', to: 'friendships#destroy'
 
+  get '/users/:id', to: 'users#show'
+
+  # get '/courses/:id', to: 'courses#show'
+
+
+
   resources :reviews
   resources :courses, only: [:index, :show, :create, :update]
   resources :users, except: [:create, :show]
