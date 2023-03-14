@@ -1,5 +1,5 @@
 class UserSerializer < ActiveModel::Serializer
-  attributes :id, :name, :email, :password_digest, :accepted_friends, :pending_received_friendships_requests
+  attributes :id, :name, :email, :accepted_friends, :pending_received_friendships_requests
   has_many :sent_friendships_requests
   has_many :received_friendships_requests
 

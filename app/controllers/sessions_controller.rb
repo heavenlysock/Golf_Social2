@@ -1,7 +1,13 @@
 class SessionsController < ApplicationController
 
     skip_before_action :authenticated_user, only: :create 
+    #this3
     # possibly not needed
+
+    def show 
+        user = User.find(session[:user_id])
+        render json: user, status: :ok
+    end
 
     def create # login
         user = User.find_by(email: params[:email])

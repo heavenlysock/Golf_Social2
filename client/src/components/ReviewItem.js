@@ -35,6 +35,7 @@ function ReviewItem({ review, setReviews, isAuthenticated, setRevList, currentUs
 
                 })
               })
+            setUpdateForm(current => !current)
         }
       })
       
@@ -104,12 +105,19 @@ function ReviewItem({ review, setReviews, isAuthenticated, setRevList, currentUs
                 </div>
                     <br/>
                     <div className='col-sm-6'>
-                      <button
+                    <input type="radio" name="favorite" value="true" onChange={handleFormChange}/>
+                    <label for="contactChoice2">Favorite</label>
+
+                    <input type="radio" name="favorite" value="false" onChange={handleFormChange}/>
+                    <label for="contactChoice3">Remove Favorite</label>
+
+
+                      {/* <button
                         className={`btn btn-${editReview.favorite ? 'success' : 'secondary'}`}
                         onClick={() => handleFavoriteClick()}
                       >
-                        {editReview.favorite ? 'Favorite' : 'Not Favorite'}
-                      </button>
+                        {editReview.favorite ? 'Favorite' : 'Remove Favorite'}
+                      </button> */}
                     </div>
                     
 
@@ -120,7 +128,7 @@ function ReviewItem({ review, setReviews, isAuthenticated, setRevList, currentUs
                 </form> :
                 null
                 }
-                <button onClick={()=> handleDeleteClick()}>Delete Review</button>
+                {currentUser.id === review.user.id ? <button onClick={()=> handleDeleteClick()}>Delete Review</button> : null}
         </div>
     </div>
     )

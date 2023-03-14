@@ -77,9 +77,9 @@ function App() {
 
           <Route exact path="/courses" element={<CourseList />} />
 
-          <Route exact path='/courses/:id' element={<CourseDetail onShowDetails={onShowDetails} displayInfo={currentUser} currentUser={currentUser} onDeleteUser={onDeleteUser} />} />
+          <Route exact path='/courses/:id' element={<CourseDetail onShowDetails={onShowDetails}   onDeleteUser={onDeleteUser}  />} />
 
-          <Route exact path='/users/:id' element={<UserDetail onShowDetails={onShowDetails} displayInfo={currentUser} currentUser={currentUser} onDeleteUser={onDeleteUser} />} />
+          <Route exact path='/users/:id' element={<UserDetail onShowDetails={onShowDetails}  currentUser={currentUser} onDeleteUser={onDeleteUser} setCurrentUser={setCurrentUser} />} />
 
           <Route exact path='/friendships' element={<FriendshipList onShowDetails={onShowDetails}  currentUser={currentUser} setCurrentUser={setCurrentUser} />} />
 

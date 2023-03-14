@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
     skip_before_action :authenticated_user, only: [:create]
+    #this4 
     # before_action :authorize, only: [:update, :destroy]
 
 
@@ -10,7 +11,8 @@ class UsersController < ApplicationController
     end
 
     def show
-        render json: @current_user, status: :ok
+        user = find_user
+        render json: user
     end
 
     def index
@@ -32,6 +34,10 @@ class UsersController < ApplicationController
 
 
     private
+
+    def find_user
+        user = User.find(params[:id])
+    end
 
     def user_params
         params.permit(:name, :password, :image, :email)

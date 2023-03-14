@@ -12,23 +12,27 @@ function FriendshipList({ onShowDetails, displayInfo, currentUser, setCurrentUse
 
 
     function acceptFriendship(friendshipId) {
-        fetch('/friendships/accept', {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json'},
-            body: JSON.stringify({
-              friend_id: friendshipId,
-              status: 'accepted'
-            })
+        fetch(`/friendships/${friendshipId}`, {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json'}
+
         })
-            .then(res => res.json())
-            .then((userObj) => {
-              setCurrentUser({
-                  ...userObj,
-                  pending_received_friendships_requests: userObj.pending_received_friendships_requests
-                  ? userObj.pending_received_friendships_requests.filter(friendship => friendship.id !== friendshipId)
-                  : [],
-                  accepted_friends: [...(userObj.accepted_friends || []), userObj.pending_received_friendships_requests?.find(friendship => friendship.id === friendshipId)].filter(Boolean)
+
+            .then((res) => {
+            if (res.status === 202 ) {
+              res.json().then(friendshipObj => {
+
+                setCurrentUser({
+                  ...currentUser,
+                  pending_received_friendships_requests: currentUser.pending_received_friendships_requests.filter(friendship => friendship.id !== friendshipObj.id),
+                  accepted_friends: [friendshipObj.sender, ...currentUser.accepted_friends]
               })
+              }
+              )
+            } else {
+              res.json().then(errorObj => alert(errorObj.error))
+            }
+            
             })
             .catch((error) => {
               console.error(error);
@@ -37,46 +41,45 @@ function FriendshipList({ onShowDetails, displayInfo, currentUser, setCurrentUse
       }
 
       function rejectFriendship(friendshipId) {
-        fetch('/friendships/reject', {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json'},
-            body: JSON.stringify({
-              friend_id: friendshipId,
-              status: 'rejected'
-            })
+        fetch(`/friendships/${friendshipId}`, {
+            method: 'DELETE',
+
         })
-            .then(res => res.json())
-            .then((userObj) => {
-              setCurrentUser({
-                  ...userObj,
-                  pending_received_friendships_requests: userObj.pending_received_friendships_requests
-                    ? userObj.pending_received_friendships_requests.filter(friendship => friendship.id !== friendshipId)
-                    : []
-              })
+            .then((res) => {
+              if (res.status === 204) {
+                // res.json().then(() => {
+                  setCurrentUser({
+                    ...currentUser,
+                    pending_received_friendships_requests: currentUser.pending_received_friendships_requests.filter(friendship => friendship.id !== friendshipId)
+                  })
+                
+              } else {
+              setError('Failed to reject friendship.');            
+              }
             })
-            .catch((error) => {
-              console.error(error);
-              setError('Failed to reject friendship.');
+              .catch((error) => {
+                console.error(error);
+                setError('Failed to reject friendship.');
           });
     }
 
 
-      function onDeleteFriendship(friendshipId) {
-        fetch('/friendships/remove', {
-          method: 'DELETE',
-          headers: { 'Content-Type': 'application/json'},
-          body: JSON.stringify({friend_id: friendshipId})
-        })
-        .then(res => res.json())
-        .then((userObj) => {
-          setCurrentUser({
-            ...userObj,
-            pending_received_friendships_requests: userObj.pending_received_friendships_requests.filter(friendship => friendship.id !== friendshipId)
-          })
-        })
-        .catch((error) => {
-          console.error(error);
-          setError('Failed to delete friendship.');
+      // function onDeleteFriendship(friendshipId) {
+      //   fetch('/friendships/remove', {
+      //     method: 'DELETE',
+      //     headers: { 'Content-Type': 'application/json'},
+      //     body: JSON.stringify({friend_id: friendshipId})
+      //   })
+      //   .then(res => res.json())
+      //   .then((userObj) => {
+      //     setCurrentUser({
+      //       ...userObj,
+      //       pending_received_friendships_requests: userObj.pending_received_friendships_requests.filter(friendship => friendship.id !== friendshipId)
+      //     })
+      //   })
+      //   .catch((error) => {
+      //     console.error(error);
+      //     setError('Failed to delete friendship.');
     
 
 //     fetch(`/friendships/${friendshipId}`, {
@@ -90,8 +93,8 @@ function FriendshipList({ onShowDetails, displayInfo, currentUser, setCurrentUse
 //         console.log('Failed to delete friendship.');
 //       }
 //     });
-    })
-  }
+    
+  
 
   return (
     <div>
@@ -100,8 +103,8 @@ function FriendshipList({ onShowDetails, displayInfo, currentUser, setCurrentUse
         <ul>
            {currentUser.pending_received_friendships_requests?.map(friendship => (
                 <li key={friendship.id}>  
-                <Link className="nav-link" to={`/users/${friendship.sender.id === currentUser.id ? friendship.recipient.id : friendship.sender.id}`}>
-                    <h3>{friendship.sender.id === currentUser.id ? friendship.recipient.name : friendship.sender.name}</h3>
+                <Link className="nav-link" to={`/users/${friendship.sender.id}`}>
+                    <h3>{friendship.sender.name}</h3>
                 </Link>
                 <button onClick={() => acceptFriendship(friendship.id)}>
                   Accept
@@ -109,24 +112,21 @@ function FriendshipList({ onShowDetails, displayInfo, currentUser, setCurrentUse
                 <button onClick={() => rejectFriendship(friendship.id)}>
                   Reject
                 </button>
-                <button onClick={() => onDeleteFriendship(friendship.id)}>
+                {/* <button onClick={() => onDeleteFriendship(friendship.id)}>
                   Delete
-                </button>
+                </button> */}
             </li>
             ))}
         </ul>
 
         <h2>Confirmed Friends List</h2>
         <ul>
-        {currentUser.accepted_friends?.filter((friendship) => friendship.status === 'accepted')
-    .map((friendship) => (
-      <li key={friendship.id}>
-        <Link className="nav-link" to={`/users/${friendship.id}`}>
-          <h3>{friendship.name}</h3>
+        {currentUser.accepted_friends?.map((friend) => (
+    
+          <li key={friend.id}>
+          <Link className="nav-link" to={`/users/${friend.id}`}>
+            <h3>{friend.name}</h3>
                 </Link>
-                <button onClick={() => onShowDetails(friendship)}>
-                    Show Details
-                </button>
                 </li>
             ))}
         </ul>

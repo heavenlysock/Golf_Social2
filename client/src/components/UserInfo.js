@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom'
 import React from 'react'
 
-function UserInfo({ user = { id: null, image: '', name: '' } }) {
+function UserInfo({ user  }) {
     return (
       <div className="card-deck col-sm-3 my-3">
         <NavLink to={`/users/${user.id}`}>

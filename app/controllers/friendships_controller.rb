@@ -1,6 +1,6 @@
 class FriendshipsController < ApplicationController
     def index
-      friendships = @current_user.friendships
+      friendships = @current_user.received_friendships_requests
       render json: friendships, status: :ok
     end
   
@@ -11,29 +11,26 @@ class FriendshipsController < ApplicationController
   
     def create
       params[:sender_id] = @current_user.id
-      friendship = Friendship.new(friendship_params)
-      if friendship.save
-        render json: friendship, status: :created
-      else
-        render json: { error: friendship.errors.full_messages }, status: :unprocessable_entity
-      end
+      Friendship.find_or_create_by!(friendship_params)
+      render json: @current_user, status: :created
     end
   
     def update
-      friendship = Friendship.find(params[:friend_id])
+      friendship = Friendship.find(params[:id])
       if friendship.recipient == @current_user || friendship.sender == @current_user
-        friendship.update(status: "accepted")
-        render json: { friend: friendship }, status: :accepted
+        friendship.update!(status: "accepted")
+        render json: friendship, status: :accepted
       else
         render json: { error: "Unauthorized" }, status: :unauthorized
       end
     end
   
     def destroy
-      friendship = Friendship.find(params[:friend_id])
-      if friendship.recipient == @current_user || friendship.sender == @current_user
-        friendship.destroy
-        render json: { message: "Friendship destroyed" }, status: :ok
+      friendships = Friendship.where(sender: @current_user, recipient_id: params[:recipient_id], status: "accepted").or(Friendship.where(recipient: @current_user, sender_id: params[:recipient_id], status: "accepted"))
+      byebug
+      if friendships.length > 0 && friendships[0].recipient == @current_user || friendships[0].sender == @current_user
+        friendships.destroy_all
+        head :no_content
       else
         render json: { error: "Unauthorized" }, status: :unauthorized
     end
@@ -42,7 +39,7 @@ end
     private
   
     def friendship_params
-      params.permit(:sender_id, :recipient_id, :status)
+      params.permit(:sender_id, :recipient_id)
     end
   end
 
