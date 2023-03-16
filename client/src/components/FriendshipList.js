@@ -1,9 +1,11 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { UserContext } from '../context/UserContext';
 
-
-function FriendshipList({ onShowDetails, displayInfo, currentUser, setCurrentUser}) {
+function FriendshipList({ onShowDetails, displayInfo}) {
     const [error, setError] = useState(null);
+    const {currentUser, setCurrentUser} = useContext(UserContext);
+
 
     // const mappedAcceptedFriendships = currentUser.accepted_received_friendship_requests.map(friendship => (
     //     <FriendshipDetail {...friendship} key={friendship.id} setFriendships={setFriendships} />));

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import React from 'react'
 
-function ReviewForm({ currentUser, onSubmitNewReview, course }) {
+function ReviewForm({ onSubmitNewReview, course }) {
 // console.log(course.reviews)
     const [rating, setRating] = useState("")
     const [favorite, setFavorite] = useState("")

@@ -1,8 +1,11 @@
 // import { NavLink } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 // import Switch from 'react-toggle-switch';
 // import FinalReview from './FinalReview';
-function ReviewItem({ review, setReviews, isAuthenticated, setRevList, currentUser }) {
+import { UserContext } from '../context/UserContext';
+
+function ReviewItem({ review, setReviews, isAuthenticated, setRevList }) {
+  const {currentUser, setCurrentUser} = useContext(UserContext);
   const [updateForm, setUpdateForm] = useState(false) 
   const [editReview, setEditReview] = useState({
     comment: "",

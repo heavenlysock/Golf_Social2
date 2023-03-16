@@ -1,8 +1,8 @@
 class CoursesController < ApplicationController
     # skip_before_action :authenticated_user, only: [:index, :show]
 
-    rescue_from ActiveRecord::RecordNotFound, with: :not_found
-    rescue_from ActiveRecord::RecordInvalid, with: :invalid
+    # rescue_from ActiveRecord::RecordNotFound, with: :not_found
+    # rescue_from ActiveRecord::RecordInvalid, with: :invalid
 
 
 
@@ -15,6 +15,7 @@ class CoursesController < ApplicationController
     end
 
     def create
+        byebug
         render json: @current_user.created_courses.create!(course_params), status: :created
     end
 

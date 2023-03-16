@@ -41,5 +41,9 @@ Review.create(user: u6, course: g5, id: 5, favorite: false, comment: "I think yo
 Review.create(user: u4, course: g6, id: 6, favorite: true, comment: "The way you placed bermuda rough around elevated greens is genius. ", rating: 8)
 Review.create(user: u7, course: g7, id: 7, favorite: false, comment: "I think the ideas are there, you just need to look at some more examples of courses to see what may make sense.", rating: 4)
 
+# BASE_URL = 'https://newsdata.io/api/1'
 
+# ENV["KEY"]
+
+# BASE_URL/
 puts 'Done seeding!'

@@ -1,6 +1,6 @@
 import './App.css';
-import { useState, useEffect} from 'react';
-import { Routes , Route } from 'react-router-dom'
+import {  useContext } from 'react';
+import { Routes, Route } from 'react-router-dom';
 import Main from './components/Main';
 import Login from './components/Login';
 import Signup from './components/Signup';
@@ -11,82 +11,74 @@ import ReviewList from './components/ReviewList';
 import UserList from './components/UserList';
 import NavBar from './components/NavBar';
 import FriendshipList from './components/FriendshipList';
-import React from 'react';
+import { UserContext } from '../src/context/UserContext';
+// import Weather from './components/Weather';
 
 function App() {
 
-  const [currentUser, setCurrentUser] = useState(null)
-  console.log(currentUser)
-  // const [displayInfo, setDisplayInfo] = useState({})
-  // console.log(displayInfo)
-  
+  const {currentUser, setCurrentUser} = useContext(UserContext);
 
+  // const [weather, setWeather] = useState(null);
 
-  useEffect(() => {
-    fetch('/me')
-      .then(response => {
-        if(response.ok) {
-          response.json()
-          .then((user) => setCurrentUser(user))
-        } else {
-          setCurrentUser(null)
-        }
-      })
-
-  }, [])
-
+  // useEffect(() => {
+  //   fetch('https://api.open-meteo.com/v1/forecast?latitude=34.05&longitude=-118.24&hourly=temperature_2m,rain&daily=temperature_2m_max,temperature_2m_min,precipitation_sum,rain_sum&temperature_unit=fahrenheit&windspeed_unit=mph&precipitation_unit=inch&forecast_days=1&timezone=America%2FLos_Angeles')
+  //     .then(response => response.json())
+  //     .then(data => setWeather(data));
+  // }, []);
 
   function onLogIn(loggedInUser) {
-    setCurrentUser(loggedInUser)
-
+    setCurrentUser(loggedInUser);
   }
 
-  function onLogOut(){
-    setCurrentUser(null)
+  function onLogOut() {
+    setCurrentUser(null);
   }
 
   function onShowDetails(individual) {
-    setCurrentUser(individual)
+    setCurrentUser(individual);
   }
 
   function onDeleteUser() {
-    setCurrentUser(null)
-    // setDisplayInfo(null)
+    setCurrentUser(null);
   }
 
-  if(!currentUser) return (
-    <Routes>
-      {/* <Route path='/' element={<Welcome/>}/> */}
-      <Route exact path='/' element={<Login onLogIn={onLogIn} setCurrentUser={setCurrentUser}  />} />
-      <Route exact path='/signup' element={<Signup onLogIn={onLogIn} />} />
-    </Routes>
-  )
-
-  return (
-    <div className="App">
-      <NavBar
-        currentUser={currentUser}
-        onLogOut={onLogOut}
+  if (!currentUser)
+    return (
+      <Routes>
+        <Route
+          exact
+          path="/"
+          element={<Login onLogIn={onLogIn} setCurrentUser={setCurrentUser} />}
         />
+        <Route exact path="/signup" element={<Signup onLogIn={onLogIn} />} />
+      </Routes>
+    );
+
+    return (
+      <div className="App">
+        <NavBar currentUser={currentUser} onLogOut={onLogOut} />
+
         <Routes>
-          <Route exact path="/" element={<Main />} />
 
-          <Route exact path="/reviews" element={<ReviewList currentUser={currentUser}/>} />
+          <Route exact path="/" element={<Main />}  />
+          
+          <Route exact path="/reviews" element={<ReviewList />} />
 
-          <Route exact path="/users" element={<UserList currentUser={currentUser} />} />
+          <Route exact path="/users" element={<UserList />} />
 
           <Route exact path="/courses" element={<CourseList />} />
 
-          <Route exact path='/courses/:id' element={<CourseDetail onShowDetails={onShowDetails}   onDeleteUser={onDeleteUser}  />} />
+          <Route exact path="/courses/:id" element={<CourseDetail />} />
 
-          <Route exact path='/users/:id' element={<UserDetail onShowDetails={onShowDetails}  currentUser={currentUser} onDeleteUser={onDeleteUser} setCurrentUser={setCurrentUser} />} />
+          <Route exact path="/users/:id" element={<UserDetail />} />
 
-          <Route exact path='/friendships' element={<FriendshipList onShowDetails={onShowDetails}  currentUser={currentUser} setCurrentUser={setCurrentUser} />} />
+          <Route exact path="/friendships" element={<FriendshipList />} />
 
         </Routes>
-      
-    </div>
-  );
+
+        {/* <Weather weather={weather} getWeather={setWeather} /> */}
+      </div>
+    );
 }
 
 export default App;

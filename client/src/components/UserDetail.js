@@ -1,20 +1,25 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import { useParams, useNavigate, json } from 'react-router-dom'
 import ReviewDetail from './ReviewDetail'
 import React from 'react'
+import { UserContext } from '../context/UserContext'
 
-function UserDetail({ onShowDetails, currentUser, onDeleteUser, onUpdateUser, setCurrentUser }) {
-
+function UserDetail({ onShowDetails, onDeleteUser, onUpdateUser }) {
+    const {currentUser, setCurrentUser} = useContext(UserContext);
     const { id } = useParams()
     let navigate = useNavigate()
     const [isUpdating, setIsUpdating] = useState(false)
     const [name, setName] = useState(currentUser ? currentUser.name : '');
-    const [image, setImage] = useState(currentUser?.image || '');
+    const [avatar, setAvatar] = useState(currentUser?.avatar || '');
     const [currentVisitedUser, setCurrentVisitedUser] = useState()
     const [error, setError] = useState(null);
+    const [avatarData, setAvatarData] = useState("")
     
+    console.log(currentUser.avatar)
+
+
     useEffect(() => {
-        console.log(currentVisitedUser)
+        // console.log(currentVisitedUser)
         fetch(`/users/${id}`)
         .then(res => {
             if(res.ok) {
@@ -82,7 +87,7 @@ function UserDetail({ onShowDetails, currentUser, onDeleteUser, onUpdateUser, se
         e.preventDefault()
         let updateInput = {
             name: name,
-            image: image
+            avatar: avatar
         }
 
 
@@ -117,8 +122,22 @@ function UserDetail({ onShowDetails, currentUser, onDeleteUser, onUpdateUser, se
               })
         } 
     }
-    
-
+    const handleUpdateUser = async (e) => {
+        e.preventDefault()
+        const formData = new FormData()
+        formData.append('img', avatarData)
+        formData.append('user_id', currentUser.id)
+        const response = await fetch(`/avatars/${currentUser.avatar.id}`, {
+            method: 'PATCH',
+            body: formData
+          })
+          
+          const data = await response.json()
+          setCurrentUser(data)
+          
+      
+        }
+    // let inputRef;
     return(
         <div>
             {currentVisitedUser ? 
@@ -141,26 +160,30 @@ function UserDetail({ onShowDetails, currentUser, onDeleteUser, onUpdateUser, se
                                             />
                                         </div>
                                     </div>
-                                    <div className='form-group row mx-5 my-2'>
-                                        <label className='col-sm-2 col-form-label' htmlFor="image">Profile Picture</label>
+                                    <button className='btn btn-secondary' type="submit">Update</button>
+                                    </form>
+                                    <form onSubmit={handleUpdateUser}>
+                                        <label className='col-sm-2 col-form-label' htmlFor="avatar">Avatar</label>
                                         <div className='col-sm-8'>
                                             <input 
                                                 className='form-control'
-                                                type="text" 
-                                                name="image" 
-                                                value={image}
-                                                onChange={e => setImage(e.target.value)}
-                                            />
+                                                required
+                                                type="file"
+                                                name="avatar"
+                                                accept="image/*"
+                                                // ref={refParam => inputRef = refParam}
+                                                onChange={e => setAvatarData(e.target.files[0])}
+                                                />
+                                            <button className='btn btn-secondary' type="submit">Add Avatar</button>
                                         </div>
-                                    </div>
-                                    <button className='btn btn-secondary' type="submit">Update</button>
-                                </form>
+                                    </form>    
+                                    
                             </div>
                             :
                             <div className='card mb-3 mx-auto'>
                                 <div className='row no-gutters flexCont'>
                                     <div className="col-md-4">
-                                        <img className="card-img my-5 mx-5" alt="me" src={currentVisitedUser.image}/>
+                                        <img className="card-img my-5 mx-5" alt="me" src={currentVisitedUser.avatar.img}/>
                                     </div>
                                     <div className='col-md-8'>
                                         <h3 className='card-title my-5'>{currentVisitedUser.name}</h3>

@@ -1,7 +1,10 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import React from 'react'
+import { useContext } from "react";
+import { UserContext } from "../context/UserContext";
 
-const NavBar = ({ currentUser, onLogOut }) => {
+const NavBar = ({ onLogOut }) => {
+    const {currentUser, setCurrentUser} = useContext(UserContext);
     const navigate = useNavigate();
 
     function handleLogOut() {

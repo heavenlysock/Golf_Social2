@@ -1,11 +1,13 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import { useParams } from 'react-router-dom'
 import ReviewForm from './ReviewForm'
 import ReviewDetail from './ReviewDetail'
 import React from 'react';
+import { UserContext } from '../context/UserContext';
 
-function CourseDetail({ onShowDetails, displayInfo, currentUser  }) {
+function CourseDetail({ onShowDetails, displayInfo  }) {
 
+    const { currentUser } = useContext(UserContext);
     let { id } = useParams()
 
     const [showForm, setShowForm] = useState(false)

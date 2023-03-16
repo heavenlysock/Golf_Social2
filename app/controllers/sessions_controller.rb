@@ -1,6 +1,6 @@
 class SessionsController < ApplicationController
 
-    skip_before_action :authenticated_user, only: :create 
+    # skip_before_action :authenticated_user, only: :create 
     #this3
     # possibly not needed
 

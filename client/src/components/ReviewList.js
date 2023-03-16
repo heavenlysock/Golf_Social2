@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useContext } from "react"
 import React from 'react'
 import ReviewItem from './ReviewItem'
+import { UserContext } from "../context/UserContext"
 
 
-
-function ReviewList({currentUser}) {
+function ReviewList() {
+    const {currentUser, setCurrentUser} = useContext(UserContext);
     // const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [revList, setRevList] = useState([])
 

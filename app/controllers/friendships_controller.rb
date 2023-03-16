@@ -10,14 +10,14 @@ class FriendshipsController < ApplicationController
     end
   
     def create
-      params[:sender_id] = @current_user.id
+      params[:sender_id] = session[:user_id]
       Friendship.find_or_create_by!(friendship_params)
-      render json: @current_user, status: :created
+      render json: User.find(session[:user_id]), status: :created
     end
   
     def update
       friendship = Friendship.find(params[:id])
-      if friendship.recipient == @current_user || friendship.sender == @current_user
+      if friendship.recipient.id == session[:user_id] || friendship.sender.id == session[:user_id]
         friendship.update!(status: "accepted")
         render json: friendship, status: :accepted
       else
@@ -26,9 +26,8 @@ class FriendshipsController < ApplicationController
     end
   
     def destroy
-      friendships = Friendship.where(sender: @current_user, recipient_id: params[:recipient_id], status: "accepted").or(Friendship.where(recipient: @current_user, sender_id: params[:recipient_id], status: "accepted"))
-      byebug
-      if friendships.length > 0 && friendships[0].recipient == @current_user || friendships[0].sender == @current_user
+      friendships = Friendship.where(sender_id: session[:user_id], recipient_id: params[:recipient_id], status: "accepted").or(Friendship.where(recipient_id: session[:user_id], sender_id: params[:recipient_id], status: "accepted"))
+      if friendships.length > 0 && friendships[0].recipient.id == session[:user_id] || friendships[0].sender.id == session[:user_id]
         friendships.destroy_all
         head :no_content
       else

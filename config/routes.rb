@@ -28,7 +28,7 @@ Rails.application.routes.draw do
   # get '/courses/:id', to: 'courses#show'
 
 
-
+  resources :avatars
   resources :reviews
   resources :courses, only: [:index, :show, :create, :update]
   resources :users, except: [:create]

@@ -6,7 +6,7 @@ function UserInfo({ user  }) {
       <div className="card-deck col-sm-3 my-3">
         <NavLink to={`/users/${user.id}`}>
           <div className="card text-card">
-            <img className="card-img-top" alt='me' src={user.image}/>
+            <img className="card-img-top" alt='me' src={user.avatar.img}/>
             <h4 className='card-title my-3'>{user.name}</h4>
             <div className='card-body'>
               {/* <p>{user.number_of_reviews} Reviews</p> */}
